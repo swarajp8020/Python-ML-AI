@@ -7,7 +7,7 @@
 # turn_100_year = current_year + years_left
 # print(f"Hi{name}, your {age} young")
 # print(f"You will turn 100 years old in the year {turn_100_year}.")
-
+#if-else
 name = input("Enter Name: ")
 age_string = input("How Old are you? ")
 age = int(age_string)
