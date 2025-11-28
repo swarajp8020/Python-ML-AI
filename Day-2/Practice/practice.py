@@ -18,6 +18,6 @@ employees = [
 total_tech_salary = 0
 for emp in employees:
     if emp['dept'] == "Tech":
-        print(f"Found Techie {emp['salary']}")
-        total_tech_salary += emp["salary"]
-print(f"Total Tech Salary {total_tech_salary}")
+        print(f"Techie Found {emp['name']}")
+        total_tech_salary += emp['salary']
+print(f'Total Tech Salary {total_tech_salary}')
