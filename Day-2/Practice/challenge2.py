@@ -6,4 +6,8 @@ logs = [
     "WARNING:Disk_Space:Low"
 ]
 log_parser = [log.split(':') for log in logs ]
-print(f"{logs[Level]} reported by {logs[Source]:[Message]}")
+for item in log_parser:
+    level=item[0]
+    source=item[1]
+    message=item[2]
+    print(f"[{level}] reported by [{source}:{message}]")
