@@ -15,4 +15,5 @@ raw_prices = [100, -50, 200, None, 50, -10, 300]
 clean_prices = [price * 1.1 for price in raw_prices if price is not None and price > 0]
 
 print(clean_prices)
+
 # Output will be: [110.0, 220.0, 55.0, 330.0]
