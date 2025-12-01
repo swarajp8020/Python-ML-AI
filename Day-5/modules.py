@@ -8,3 +8,6 @@ now = datetime.datetime.now()
 print(f"Current Log Time: {now}")
 # 3. Math: Square Root
 print(f"Square root of 16 is: {math.sqrt(16)}")
+from math import sqrt,pi
+print(sqrt(24))
+print(f"value of pi is: {pi}")
