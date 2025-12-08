@@ -20,6 +20,28 @@ while True:
         break
     elif choice == "1":
         print("\nCurrent Stock")
+    # ADD/UPDATE LOGIC
+    elif choice == "2":
+        name = input("Enter Item Name: ")
+        
+        # Crash protection: Ensure quantity is a number
+        try:
+            qty = int(input("Enter Quantity: "))
+            
+            # THE MAGIC LINE
+            # No .put(), no setters. Just direct assignment.
+            inventory[name] = qty
+            
+            print(f"Success! {name} is now at {qty}.")
+            
+        except ValueError:
+            print("Error: Quantity must be a number!")
+    elif choice == "3":
+        name = input("Enter item to remove: ")
+        if name in inventory:
+            inventory.pop(name)
+        else:
+            print("Item not found!")
 
-        for item, count in inventory.items():
+    for item, count in inventory.items():
             print(f"-{item}:{count}")
