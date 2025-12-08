@@ -43,5 +43,5 @@ while True:
         else:
             print("Item not found!")
 
-    for item, count in inventory.items():
+        for item, count in inventory.items():
             print(f"-{item}:{count}")
