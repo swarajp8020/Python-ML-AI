@@ -38,7 +38,7 @@ try:
     print("--saved--")
     output_name = "fixed_"+filename
     with open(output_name, "w")as f:
-        f.write = result["fixed_code"]
+        f.write = (result["fixed_code"])
     print(f"output is {output_name}")
     print("answer")
     print(result["fixed_code"])
