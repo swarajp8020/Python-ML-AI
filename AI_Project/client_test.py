@@ -28,19 +28,22 @@ import requests
 
 url = "http://127.0.0.1:8000/review"
 
-filename = input("Enter a file to fix: ")
+filename = input("enter a file to fix: ")
 try:
     with open(filename, "r") as f:
         content_of_file = f.read()
-        my_data = {"code":content_of_file}
-    response = requests.post(url, json=my_data)
+        my_data = {"code" : content_of_file}
+    response = requests.post(url,my_data)
     result = response.json()
-    print("--sending to kitchen--")
+    
+    print("--saved--")
+
     output_name = "fixed_"+filename
     with open(output_name, "w") as f:
         f.write(result["fixed_code"])
-    print(f"saved to {output_name}")
-    print("--chefs answer--")
+    print(f"done {output_name}")
+    print("answer")
     print(result["fixed_code"])
+
 except FileNotFoundError:
-    print("Error! Please upload correct file.")
+    print("Error! Please add correct file. ")
