@@ -33,7 +33,7 @@ try:
     with open(filename, "r") as f:
         content_of_file = f.read()
         my_data = {"code" : content_of_file}
-    response = requests.post(url,my_data)
+    response = requests.post(url, json=my_data)
     result = response.json()
     
     print("--saved--")
