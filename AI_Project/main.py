@@ -22,7 +22,7 @@ async def review_code(request: CodeRequest):
     print("--- Received Code for Review ---")
     
     # Prepare the prompt
-    prompt = f"Fix this python code and return ONLY the fixed code (no markdown):\n{request.code}"
+    prompt = f"Fix this python code and add a one liner funny comment explaining the bug:\n{request.code}"
     
     # Ask Gemini
     response = model.generate_content(prompt)
