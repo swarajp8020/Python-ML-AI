@@ -1,6 +1,13 @@
 import requests # The tool to visit websites via code
 import os
 
+def scan_and_fix(folder_path):
+    print(f"--Scanning {folder_path}")
+    
+
+if __name__ == "__main__":
+     scan_and_fix(".")
+
 url = "http://127.0.0.1:8000/review"
 files = os.listdir(".")
 print(f"Scanning Folders: {os.getcwd()}")
