@@ -14,6 +14,8 @@ def scan_and_fix(folder_path):
     for file in files:
         if file.startswith("buggy_")and file.endswith(".py"):
             print(f"\n--- Found Buggy File: {file} ---")
+            # Use os.path.join for safe paths
+            # This creates ".\buggy_1.py" correctly on Windows
             full_file_path = os.path.join(folder_path, file)
             try:
                     with open(full_file_path,"r")as f:
@@ -23,10 +25,12 @@ def scan_and_fix(folder_path):
                         print("--- Sending Order to Kitchen ---")
 
                         response = requests.post(url, json=my_data)
+                        # Check for success before parsing
                         if response.status_code == 200:
                             result = response.json()
 
                             output_name = "fixed_" + file
+                            # Join path for output too
                             output_path = os.path.join(folder_path, output_name)
                         
                             with open(output_path, "w") as f:
@@ -44,6 +48,6 @@ def main():
     else:
         folder_to_scan = "."
     scan_and_fix(folder_to_scan)
-
+# The "On" Button
 if __name__ == "__main__":
     main()
