@@ -21,7 +21,7 @@ def greet():
 
 # 3. The Real Logic
 @app.post("/review")  # <--- Renamed to match your Client!
-def review_code(request: CodeRequest):
+def review_code(request: codeRequest):
     print(f"\n--- 📨 Received Code (Length: {len(request.code)}) ---")
     
     # A. The Instructions for the AI
