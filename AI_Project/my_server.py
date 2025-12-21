@@ -12,7 +12,7 @@ model = genai.GenerativeModel("gemini-2.5-flash")
 app = FastAPI()
 
 # 2. Define the Form
-class CodeRequest(BaseModel):
+class codeRequest(BaseModel):
     code: str
 
 @app.get("/")
