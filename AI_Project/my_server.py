@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
+from pydantic import BaseModel, field_validator
 import google.generativeai as genai
 import uvicorn
 import config  # Importing your API Key from the safe file
@@ -14,7 +14,12 @@ app = FastAPI()
 # 2. Define the Form
 class codeRequest(BaseModel):
     code: str
-
+    # The Guard Dog Function
+    @field_validator('code')
+    def check_code_not_empty(cls, v):
+        if not v.strip():
+            raise ValueError('Code cannot be empty/blank!')
+        return v
 @app.get("/")
 def greet():
     return {"message": "Gemini AI Server is Running 🟢"}
