@@ -34,28 +34,28 @@ def review_code(request: codeRequest):
     The Buggy Code:
     {request.code}
     """
-    
-    try:
-        # B. Send to Google
-        print("--- 🤖 Asking Gemini... ---")
-        response = model.generate_content(prompt)
-        
-        # C. Clean the text (Remove ```json and ```)
-        cleaned_text = response.text.replace("```json", "").replace("```", "").strip()
-        
-        # D. Return the result to the Client
-        # We manually parse it to dictionary to be safe, or just return the raw text if you prefer.
-        # For now, let's use eval() carefully or just trust the structure.
-        # Ideally, we use json.loads, but let's keep it simple:
-        import json
-        data = json.loads(cleaned_text)
-        
-        print("--- ✅ Fix Sent! ---")
-        return data
+    attempts = 0
+    max_retries = 2
+    while attempts < max_retries:
+        try:
+            # B. Send to Google
+            print("--- 🤖 Asking Gemini... ---")
+            response = model.generate_content(prompt)
+            # C. Clean the text (Remove ```json and ```)
+            cleaned_text = response.text.replace("```json", "").replace("```", "").strip()
+            
+            # D. Return the result to the Client
+            # We manually parse it to dictionary to be safe, or just return the raw text if you prefer.
+            # For now, let's use eval() carefully or just trust the structure.
+            # Ideally, we use json.loads, but let's keep it simple:
+            import json
+            data = json.loads(cleaned_text)
+            print("--- ✅ Fix Sent! ---")
+            return data
 
-    except Exception as e:
-        print(f"❌ Error: {e}")
-        return {"fixed_code": f"# Error processing code: {e}"}
+        except Exception as e:
+            print(f"❌ Error: {e}")
+            return {"fixed_code": "# Error: AI could not generate valid JSON after retries."}
 
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=8000)
