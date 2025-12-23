@@ -2,7 +2,14 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, field_validator
 import google.generativeai as genai
 import uvicorn
-import config  # Importing your API Key from the safe file
+import config 
+import logging
+
+logging.basicConfig(
+    filename='server.log', 
+    level=logging.INFO, 
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
 
 # 1. Setup the "Brain" (Gemini)
 genai.configure(api_key=config.GEMINI_API_KEY)
@@ -27,7 +34,7 @@ def greet():
 # 3. The Real Logic
 @app.post("/review")  # <--- Renamed to match your Client!
 def review_code(request: codeRequest):
-    print(f"\n--- 📨 Received Code (Length: {len(request.code)}) ---")
+    logging.info(f"\n--- 📨 Received Code (Length: {len(request.code)}) ---")
     
     # A. The Instructions for the AI
     prompt = f"""
@@ -44,7 +51,7 @@ def review_code(request: codeRequest):
     while attempts < max_retries:
         try:
             # B. Send to Google
-            print("--- 🤖 Asking Gemini... ---")
+            logging.info("--- 🤖 Asking Gemini... ---")
             response = model.generate_content(prompt)
             # C. Clean the text (Remove ```json and ```)
             cleaned_text = response.text.replace("```json", "").replace("```", "").strip()
@@ -55,11 +62,11 @@ def review_code(request: codeRequest):
             # Ideally, we use json.loads, but let's keep it simple:
             import json
             data = json.loads(cleaned_text)
-            print("--- ✅ Fix Sent! ---")
+            logging.info("--- ✅ Fix Sent! ---")
             return data
 
         except Exception as e:
-            print(f"❌ Error: {e}")
+            logging.error(f"❌ Error: {e}")
             return {"fixed_code": "# Error: AI could not generate valid JSON after retries."}
 
 if __name__ == "__main__":
