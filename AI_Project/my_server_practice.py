@@ -4,7 +4,7 @@ import google.generativeai as genai
 import config, logging, uvicorn
 
 logging.basicConfig(
-    filename = 'dec28_server.log',
-    level = logging.INFO,
+    filename = 'Dec28_server.log',
+    levelname = logging.INFO,
     format = ('%(asctime)s - %(levelname)s - %(message)s')
 )
